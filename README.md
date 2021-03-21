@@ -15,6 +15,7 @@ I've got a fairly well-equipped nerd cave slash home office, although I've offlo
 - [Bench power supply](bench-psu.md)
 - [Painting](painting.md)
 - [Videoconferencing / Streaming](streaming.md)
+- [Parts Inventory](inventory.md)
 
 ## Software
 - [Slicer Settings](slicer.md)
