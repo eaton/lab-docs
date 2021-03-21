@@ -8,9 +8,11 @@ I've got a fairly well-equipped nerd cave slash home office, although I've offlo
 - [Desks, workbenches, and storage](surfaces.md)
 
 ## Equipment
-- [Ender 3](ender3.md) printer
+- [Ender 3](ender3.md)
 - [Network Cart](network-cart.md)
 - [Pi Cluster](pi-cluster.md)
+- [Bench power supply](bench-psu.md)
+- [Painting](painting.md)
 - [Videoconferencing / Streaming](streaming.md)
 
 ## Software
