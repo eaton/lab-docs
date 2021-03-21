@@ -1,18 +1,18 @@
 # Ender 3 Mods
 
-Nothing particularly fancy here, just an ongoing record of the various mods I make to a stock [Creality Ender 3](https://www.amazon.com/gp/product/B07BR3F9N6) originally purchased in 2018. It's a workhorse that's pretty easy to mod, and I'd give it a big thumbs up for anyone interested in getting involved in 3D printing.
+Nothing particularly fancy here, just an ongoing record of the various mods I make to a stock [Creality Ender 3](https://www.amazon.com/gp/product/B07BR3F9N6) originally purchased in 2018. It's a workhorse that's pretty easy to mod, and I'd give it a big thumbs up for anyone interested in getting involved in 3D printing. Anything marked with an asterisk is a standard part of subsequent releases of the printer — the Ender 3 Pro, V2, etc.
 
 ## Current mods:
 
 - [x] [Firm bed springs](https://www.amazon.com/dp/B07K9PBML5)
-- [x] [Glass print bed](https://www.amazon.com/B07F16WPR5)
-- [x] [Alumnium extruder](https://www.amazon.com/gp/product/B07G2ZM919)
+- [x] [Glass print bed](https://www.amazon.com/B07F16WPR5)*
+- [x] [Alumnium extruder](https://www.amazon.com/gp/product/B07G2ZM919)*
 - [x] [Silicone hot end sleeve](https://www.amazon.com/dp/B083GXQ7L8)
 - [x] [Hero Me Gen3 cooling ducts](https://www.thingiverse.com/thing:3291101) with dual 5015 parts cooling fans
 - [x] 808 bearing [filament guide](https://www.thingiverse.com/thing:4024617)
 - [x] [Meanwell power supply](https://www.amazon.com/gp/product/B013ETVO12) w/[Noctua 80mm fan](https://www.amazon.com/gp/product/B00KF7T9MI)
-- [x] [X belt](https://www.thingiverse.com/thing:3270228) and [Y belt](https://www.thingiverse.com/thing:3264177) tensioners
-- [x] Upgraded 1.1.5 Mainboard (Replaced by [32-bit 4.2.7 mainboard](https://creality3d.shop/products/creality3d-upgrade-silent-4-2-7-1-1-5-mainboard-for-ender-3-ender-3-pro-ender-5-3d-printer?variant=36836286038166))
+- [x] [X belt](https://www.thingiverse.com/thing:3270228) and [Y belt](https://www.thingiverse.com/thing:3264177) tensioners*
+- [x] Upgraded 1.1.5 Mainboard (Replaced by [32-bit 4.2.7 mainboard](https://creality3d.shop/products/creality3d-upgrade-silent-4-2-7-1-1-5-mainboard-for-ender-3-ender-3-pro-ender-5-3d-printer?variant=36836286038166))*
 - [x] 60mm mainboard fan and [boosted cover](https://www.thingiverse.com/thing:4478891)
 
 ## Octoprint controller
