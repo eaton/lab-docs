@@ -1,6 +1,6 @@
 # Ender 3 Mods
 
-Nothing particularly fancy here, just an ongoing record of the various mods I make to a Creality Ender 3. It's a workhorse printer that's relatively easy to hack, and I'd give it a big thumbs up for anyone interested in getting involved in 3D printing.
+Nothing particularly fancy here, just an ongoing record of the various mods I make to a stock [Creality Ender 3](https://www.amazon.com/gp/product/B07BR3F9N6) originally purchased in 2018. It's a workhorse that's pretty easy to mod, and I'd give it a big thumbs up for anyone interested in getting involved in 3D printing.
 
 ## Current mods:
 
