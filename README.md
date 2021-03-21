@@ -6,6 +6,7 @@ I've got a fairly well-equipped nerd cave slash home office, although I've offlo
 - [LAN](lan.md)
 - [Hosting](hosting.md)
 - [Desks, workbenches, and storage](surfaces.md)
+- [Printer/Storage cabinet](cabinet.md)
 
 ## Equipment
 - [Ender 3](ender3.md)
