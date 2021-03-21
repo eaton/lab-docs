@@ -18,9 +18,9 @@ Nothing particularly fancy here, just an ongoing record of the various mods I ma
 ## Octoprint controller
 - [x] Raspberry Pi 3B+
 - [x] IR illuminated camera
+- [x] Upgrade to Raspberry Pi 4
 
 ## In Progress
-- [x] Raspberry Pi 4
 - [ ] [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970), maybe a [variation for 60mm fans](https://www.thingiverse.com/thing:3489740)
 - [ ] Replace noisy 5015 blowers with 4020 or higher-quality 5020s
 - [ ] Replace stock 4010 hot end fan with Sunon [KDE2404PKV2](https://media.digikey.com/pdf/Data%20Sheets/Sunon%20PDFs/MagLev_Motor_Fan.pdf) or random 6015
