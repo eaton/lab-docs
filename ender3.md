@@ -27,8 +27,12 @@ Nothing particularly fancy here, just an ongoing record of the various mods I ma
 ## In Progress
 - [ ] Move mainboard and Pi to rear of printer
 - [ ] Replace LCD + Control Box with small OLED status panel
+- [ ] 24V fans + buck converter to reduce speed for Mainboard + Pi cooling
+- [ ] More durable cable for PiCam (https://www.amazon.com/gp/product/B06XDNBM63)
 
 ## Aspirational
+- [ ] Cable chain for tidier cable crap
+- [ ] Wall-mount filament spool holder
 - [ ] [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970), maybe a [variation for 60mm fans](https://www.thingiverse.com/thing:3489740)
 - [ ] Replace noisy 5015 blowers with 4020 or higher-quality 5020s
 - [ ] Replace stock 4010 hot end fan with something quieter
