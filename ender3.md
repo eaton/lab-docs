@@ -22,19 +22,19 @@ Nothing particularly fancy here, just an ongoing record of the various mods I ma
 
 ## Octoprint controller
 - [x] Raspberry Pi 4
-- [x] IR illuminated camera
+- [ ] Status and controller ([OctoDash](https://github.com/UnchartedBull/OctoDash) is a good candidate)
 
 ## In Progress
 - [ ] Move mainboard and Pi to rear of printer
 - [ ] Replace LCD + Control Box with small OLED status panel
-- [ ] 24V fans + buck converter to reduce speed for Mainboard + Pi cooling
+- [x] 24V fans + buck converter to reduce speed for Mainboard + Pi cooling
 - [ ] More durable cable for PiCam (https://www.amazon.com/gp/product/B06XDNBM63)
 
 ## Aspirational
 - [ ] Cable chain for tidier cable crap
 - [ ] Wall-mount filament spool holder
 - [ ] [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970), maybe a [variation for 60mm fans](https://www.thingiverse.com/thing:3489740)
-- [ ] Replace noisy 5015 blowers with 4020 or higher-quality 5020s
+- [ ] Replace noisy 5015 blowers with 4020 or higher-quality 5020s (This may be an issue with PWM setup in the Ender firmware, not the fans themselves — https://github.com/MarlinFirmware/Marlin/issues/16115)
 - [ ] Replace stock 4010 hot end fan with something quieter
 - [ ] Filament [runout sensor](https://www.thingiverse.com/thing:3357097)
 - [ ] Filtered, temperature controlled enclosure
