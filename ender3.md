@@ -2,6 +2,10 @@
 
 Nothing particularly fancy here, just an ongoing record of the various mods I make to a stock [Creality Ender 3](https://www.amazon.com/gp/product/B07BR3F9N6) originally purchased in 2018. It's a workhorse that's pretty easy to mod, and I'd give it a big thumbs up for anyone interested in getting involved in 3D printing. Anything marked with an asterisk is a standard part of subsequent releases of the printer — the Ender 3 Pro, V2, etc.
 
+## Current Status:
+
+Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The Pi controls power to the Ender with a relay, but it's currently a tangle of wires and a propped-up 40mm fan to keep the pi cool; coming up with a good consolidated case for the Ender's mainboard, the pi, and other fixings is probably the next project. A cable chain is probably secondl; it wouldn't hurt to integrate the two projects.
+
 ## Current mods:
 
 - [x] [Firm bed springs](https://www.amazon.com/dp/B07K9PBML5)
