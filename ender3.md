@@ -12,7 +12,7 @@ Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The P
 - [x] [Glass print bed](https://www.amazon.com/B07F16WPR5)*
 - [x] [Alumnium extruder](https://www.amazon.com/gp/product/B07G2ZM919)*
 - [x] [Silicone hot end sleeve](https://www.amazon.com/dp/B083GXQ7L8)
-- [x] [Hero Me Gen3 cooling ducts](https://www.thingiverse.com/thing:3291101) with dual 5015 parts cooling fans
+- [x] [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970) with dual 5020 parts cooling fans
 - [x] 808 bearing [filament guide](https://www.thingiverse.com/thing:3052488)
 - [x] [Meanwell power supply](https://www.amazon.com/gp/product/B013ETVO12) w/[Noctua 80mm fan](https://www.amazon.com/gp/product/B00KF7T9MI)
 - [x] [X belt](https://www.thingiverse.com/thing:3270228) and [Y belt](https://www.thingiverse.com/thing:3264177) tensioners*
@@ -25,21 +25,17 @@ Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The P
 - [x] Remove control box and LCD panel, I do everything via Octoprint anyways
 
 ## Octoprint controller
-- [x] Raspberry Pi 4
 - [ ] Status and controller ([OctoDash](https://github.com/UnchartedBull/OctoDash) is a good candidate)
 
 ## In Progress
 - [ ] Move mainboard and Pi to rear of printer
 - [ ] Replace LCD + Control Box with small OLED status panel
-- [x] 24V fans + buck converter to reduce speed for Mainboard + Pi cooling
 - [ ] More durable cable for PiCam (https://www.amazon.com/gp/product/B06XDNBM63)
 
 ## Aspirational
 - [ ] Cable chain for tidier cable crap
 - [ ] Wall-mount filament spool holder
-- [ ] [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970), maybe a [variation for 60mm fans](https://www.thingiverse.com/thing:3489740)
-- [ ] Replace noisy 5015 blowers with 4020 or higher-quality 5020s (This may be an issue with PWM setup in the Ender firmware, not the fans themselves — https://github.com/MarlinFirmware/Marlin/issues/16115)
-- [ ] Replace stock 4010 hot end fan with something quieter
+- [ ] Build and flash firmware with less annoying PWM settings - see https://github.com/MarlinFirmware/Marlin/issues/16115
 - [ ] Filament [runout sensor](https://www.thingiverse.com/thing:3357097)
 - [ ] Filtered, temperature controlled enclosure
 - [ ] What the hell, buy a [CR-10 v3](https://www.creality3dofficial.com/products/creality-cr-10-v3-3d-printer-with-genuine-e3d-direct-drive-extruder-2020-latest-version) or an [Ender 3 Max](https://www.creality3dofficial.com/products/ender-3-max-3d-printer)
