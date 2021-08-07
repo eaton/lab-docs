@@ -8,7 +8,7 @@ Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The P
 
 ## Current mods:
 
-- [x] [Firm bed springs](https://www.amazon.com/dp/B07K9PBML5)
+- [x] [Silicone bed spring replacements](https://www.aliexpress.com/item/4001034984008.html)
 - [x] [Glass print bed](https://www.amazon.com/B07F16WPR5)*
 - [x] [Alumnium extruder](https://www.amazon.com/gp/product/B07G2ZM919)*
 - [x] [Silicone hot end sleeve](https://www.amazon.com/dp/B083GXQ7L8)
@@ -23,6 +23,7 @@ Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The P
 - [x] Rewire mainboard fan and hot end fan for always-on operation; add JST connectors for easier fan swapping.
 - [x] Rewire parts cooling fans to use separate mainboard connections (second JST connector freed by mainbord fan change)
 - [x] Remove control box and LCD panel, I do everything via Octoprint anyways
+- [x] Filament drybox (https://www.thingiverse.com/thing:2929701)
 
 ## Octoprint controller
 - [ ] Status and controller ([OctoDash](https://github.com/UnchartedBull/OctoDash) is a good candidate)
@@ -34,7 +35,6 @@ Running smoothly with a Pi4 and the HeroMe Gen5 twin-duct 5020 parts fans. The P
 
 ## Aspirational
 - [ ] Cable chain for tidier cable crap
-- [ ] Wall-mount filament spool holder
 - [ ] Build and flash firmware with less annoying PWM settings - see https://github.com/MarlinFirmware/Marlin/issues/16115
 - [ ] Filament [runout sensor](https://www.thingiverse.com/thing:3357097)
 - [ ] Filtered, temperature controlled enclosure
