@@ -14,5 +14,73 @@
  * for components like various jacks, boards, and so on. Actual layout
  * of each module is handled in the psu-modules.scad file; if you're
  * looking to make something custom its code is a good place to start.
+ *
+ * FYI, all parts and components from this file are assumed to be
+ * "face up", centered on the X/Y axis. The zero point of each
+ * object's Z axis should be "flush" with the surface of the case it
+ * will be used with. That ensures alignment and boolean operations
+ * don't need lots of special-casing.
+ * 
+ * The modules to generate components accept a "mode" parameter;
+ * supported modes are 'cutout' for boolean operations with cases,
+ * and 'placeholder' for generating previews of an assembled object.
+ * Some objects also support 'mount' as a mode; it will spit out
+ * screw stands or attatchment tabs, and should be added after the 
+ * cutout version is subtracted from the surrounding case. 
  * 
  */
+ 
+// Modes
+CUTOUT = -1;
+PLACEHOLDER = 0;
+MOUNT = 1;
+
+/***** MODIFIED BINS *****/
+
+
+
+/***** INDIVIDUAL COMPONENTS *****/
+
+// 5.5mm x 2.1mm DC jacks. https://www.amazon.com/gp/product/B091PS6XQ4
+module dcJack(mode = CUTOUT) {
+}
+
+// Case-mountable XT60 connectors. https://www.amazon.com/gp/product/B08HTR7BKZ
+module xt60(mode = CUTOUT) {
+}
+
+// Screw-in fuse. https://www.amazon.com/gp/product/B07BVP8W16
+module fuse(mode = CUTOUT) {
+}
+
+// Heavy toggle switch. https://www.amazon.com/gp/product/B09232WFXS
+module fuse(mode = CUTOUT) {
+}
+
+// Digital volt/amp meter. https://www.amazon.com/gp/product/B08HQM1RMF
+module multiMeter(mode = CUTOUT) {
+}
+
+// Banana plug connectors. https://www.amazon.com/gp/product/B07VFRBRBT
+module bananaPlugs(mode = CUTOUT) {
+}
+
+// Male JST connectors. https://www.amazon.com/gp/product/B00UBUSR5Y
+module jstMale(mode = CUTOUT) {
+}
+
+// Programmable bench PSU converter. https://www.amazon.com/gp/product/B07PV6FJSL
+module benchPSU(mode = CUTOUT) {
+}
+
+// Quickcharge compatible USB converters. https://www.amazon.com/gp/product/B087RHWTJW
+module usbPort(mode = CUTOUT) {
+}
+
+// ATX breakout board. https://www.amazon.com/gp/product/B08MC389FQ
+module atxBreakout(mode = CUTOUT) {
+}
+
+// DC screw terminal block. https://www.amazon.com/gp/product/B08TBXQ7H6
+module terminalBlock(mode = CUTOUT) {
+}
