@@ -1,0 +1,6 @@
+[submodule "bench-psu/parametric-stackable-box"]
+	path = bench-psu/parametric-stackable-box
+	url = https://github.com/likeablob/parametric-stackable-box
+[submodule "bench-psu/scad-utils"]
+	path = bench-psu/scad-utils
+	url = https://github.com/OskarLinde/scad-utils
