@@ -6,16 +6,20 @@ While the existing setup works, I'd like to get the PSU box itself out of the wa
 
 With that in mind, the current goal is to build out a series of stackable, self-contained modules with dedicated lines to the PSU(s).
 
-- Fixed-Voltage module: One each for the 3.3, 5.1, and 12V rails coming from the ATX PSU. Each one features:
-  - XT60 connector for PSU hookup
-  - Fuse and power switch
-  - Volt/Amp meter
-  - Banana Plug connectors
-  - Dual 5.5mm x 2.1mm DC connectors
-  - Dual 2.54mm JST connectors for quick testing of fans etc
-- Variable Voltage module:
-  - All the fixings from the fixed-voltage module, with a USB-programmable bench power supply controller replacing the Volt/Amp meter.
-- USB module
-  - Just a fused, switched module with four quickcharge-compatible USB ports.
-- No-Tip module (weighted for use in the bottom of a stack)
-- Plugs and wires module (just a storage box for banana clips etc that fits inline with the other modules)
+- **Fixed-Voltage module**: One each for the 3.3, 5.1, and 12V rails coming from the ATX PSU. Each one features:
+  - [XT60 connector](https://www.amazon.com/gp/product/B08HTR7BKZ/) for PSU hookup
+  - [Fuse](https://www.amazon.com/gp/product/B07BVP8W16) and [power switch](https://www.amazon.com/gp/product/B09232WFXS)
+  - Digital [Voltmeter/Ammeter](https://www.amazon.com/gp/product/B08HQM1RMF)
+  - Internal [terminal block](https://www.amazon.com/gp/product/B08TBXQ7H6) to supply all power jacks
+  - Two sets of [banana plug](https://www.amazon.com/gp/product/B07VFRBRBT) connectors
+  - Dual [5.5mm x 2.1mm DC connectors](https://www.amazon.com/gp/product/B091PS6XQ4)
+  - Dual [2.54mm JST connectors](https://www.amazon.com/gp/product/B00UBUSR5Y) for quick testing of fans and other small components
+- **Variable Voltage module**:
+  - All the fixings from the fixed-voltage module, with a [USB-programmable bench power supply](https://www.amazon.com/gp/product/B07PV6FJSL) in place of the voltmeter/ammeter.
+- **USB module**
+  - Just a fused, switched module with [four quickcharge-compatible USB ports](https://www.amazon.com/gp/product/B087RHWTJW).
+- **No-Tip module** (weighted for use in the bottom of a stack)
+- **Plugs and wires module** (just a storage box for banana clips etc that fits inline with the other modules)
+- For the floor box that holds the PSUs proper, an [ATX breakout board](https://www.amazon.com/gp/product/B08MC389FQ) to separate the different voltage lines.
+
+The general approach is based on https://www.thingiverse.com/thing:3084935 by flash24; its BOM informed a bunch of decisions about the wiring and safety features. The stackable modules, though, are built around a modified version of https://www.thingiverse.com/thing:3434161 by yukiusagi3. It's a sturdy design and the OpenSCAD code for it was mighty clean; modifying it for the needs of this project was cake, and it means remixes of his box can be easily integrated with the PSU stack.
