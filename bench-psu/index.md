@@ -22,6 +22,8 @@ With that in mind, the current goal is to build out a series of stackable, self-
 - **Plugs and wires module** (just a storage box for banana clips etc that fits inline with the other modules)
 - For the floor box that holds the PSUs proper, an [ATX breakout board](https://www.amazon.com/gp/product/B08MC389FQ) to separate the different voltage lines.
 
+[An example module](./example-module.jpg)
+
 The general approach is based on https://www.thingiverse.com/thing:3084935 by flash24; its BOM informed a bunch of decisions about the wiring and safety features. The stackable modules, though, are built around a modified version of https://www.thingiverse.com/thing:3434161 by yukiusagi3. It's a sturdy design and the OpenSCAD code for it was mighty clean; modifying it for the needs of this project was cake, and it means remixes of his box can be easily integrated with the PSU stack.
 
 Is this an incredibly, ridiculously over-engineered monstrosity? Yes, obviously, but why use an excellent third-party bench PSU when you can bash together a Frankenstein monster yourself?

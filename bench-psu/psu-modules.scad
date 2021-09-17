@@ -19,3 +19,43 @@
  * it out for dependencies and other fun.
  * 
  */
+ 
+include <psu-common.scad>
+
+
+
+difference() {
+    union() {
+        translate([0,55]) binBody(binSize=[140,120,40]);
+        translate([10,85,1.2]) terminalBlock(mode=MOUNT);
+    }
+    translate([-65,65,15]) rotate([90,0,-90]) switch(mode=CUTOUT);
+    translate([-65,40,15]) rotate([90,0,-90]) fuse(mode=CUTOUT);
+    translate([-48,115,15]) rotate([90,0,180]) xt60(mode=CUTOUT);
+}
+
+
+
+union() {
+    translate([10,85,1.2]) terminalBlock(mode=PLACEHOLDER);
+    translate([7.5,3,30]) rotate([60,0]) examplePanel();
+    translate([-65,65,15]) rotate([90,0,-90]) switch(mode=PLACEHOLDER);
+    translate([-65,40,15]) rotate([90,0,-90]) fuse(mode=PLACEHOLDER);
+    translate([-48,115,15]) rotate([90,0,180]) xt60(mode=PLACEHOLDER);
+}
+
+
+
+module examplePanel() {
+    translate([45,0]) {
+        translate([-15,8]) dcJack(PLACEHOLDER);
+        translate([-15,-8]) dcJack(PLACEHOLDER);
+        translate([2.5,0,-1]) rotate([0,0,-90]) jstMale(mode=PLACEHOLDER);
+    }
+    
+    translate([-0,0]) {
+        translate([-45,0]) multiMeter(mode=PLACEHOLDER);
+        translate([-0,9]) bananaPlugs(mode=PLACEHOLDER);
+        translate([-0,-9]) bananaPlugs(mode=PLACEHOLDER);
+    }
+}
