@@ -49,22 +49,22 @@ BODY_Z = 47;
 
 module binBase(binSize, r=1) {
   basePoints = [
-    [binSize[0]/2, 0],
+    [binSize.x/2, 0],
     [0, 0],
-    [0, binSize[1]/4],
-    [3, binSize[1]/4 + 3],
-    [3, binSize[1]/4 * 3 - 3],
-    [0, binSize[1]/4 * 3],
-    [0, binSize[1]/4 * 4],
-    [0 + binSize[0]/3 - 3, binSize[1]/4 * 4],
-    [0 + binSize[0]/3, binSize[1]/4 * 4 - 3],
-    [binSize[0]/2, binSize[1]/4 * 4 - 3],
+    [0, binSize.y/4],
+    [3, binSize.y/4 + 3],
+    [3, binSize.y/4 * 3 - 3],
+    [0, binSize.y/4 * 3],
+    [0, binSize.y/4 * 4],
+    [0 + binSize.x/3 - 3, binSize.y/4 * 4],
+    [0 + binSize.x/3, binSize.y/4 * 4 - 3],
+    [binSize.x/2, binSize.y/4 * 4 - 3],
   ];
 
   pointsCentered = [for (p=basePoints)
     [
-      p[0] - binSize[0]/2,
-      p[1] - binSize[1]/2
+      p[0] - binSize.x/2,
+      p[1] - binSize.y/2
     ]
   ];
 
@@ -92,18 +92,15 @@ FRONT_EDGE_LEN = 20;
 FRONT_EDGE_TOP_DEG = 30;
 FRONT_EDGE_TOP_LEN = 25;
 
-module binBody(binSize=[80,110,47], style = "slope", mountPoints = true) {
-
-    
-
+module binBody(binSize=[80,110,47], style = "slope", mountPoints = false) {
   difference() {
     union() {
       // inner
-      linear_extrude(height=binSize[2]-HOLDER_Z_TOTAL, center=!true, convexity=10, twist=0)
+      linear_extrude(height=binSize.z-HOLDER_Z_TOTAL, center=!true, convexity=10, twist=0)
       binBase(binSize=binSize);
 
       // joint
-      translate([0, 0, binSize[2]-HOLDER_Z])
+      translate([0, 0, binSize.z-HOLDER_Z])
       minkowski() {
         hull() {
           linear_extrude(height=0.01, center=!true)
@@ -122,7 +119,7 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = true) {
       }
 
       // holder
-      translate([0, 0, binSize[2]-HOLDER_Z])
+      translate([0, 0, binSize.z-HOLDER_Z])
       linear_extrude(height=HOLDER_Z, center=!true, convexity=10, twist=0)
       offset(r=HOLDER_DELTA)
       binBase(binSize=binSize);
@@ -140,14 +137,14 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = true) {
     }
 
     // holder inner space
-    translate([0, 0, binSize[2]-HOLDER_Z+1])
+    translate([0, 0, binSize.z-HOLDER_Z+1])
     linear_extrude(height=HOLDER_Z, center=!true, convexity=10, twist=0)
     offset(r=HOLDER_CLEARANCE)
     binBase(binSize=binSize);
 
     // front space
-    translate([0, -binSize[1]/2, binSize[2]/2 + FRONT_EDGE_LEN + 1])
-    cube(size=[binSize[0]-WALL_THICK*2, 10, binSize[2]+1], center=true);
+    translate([0, -binSize.y/2, binSize.z/2 + FRONT_EDGE_LEN + 1])
+    cube(size=[binSize.x-WALL_THICK*2, 10, binSize.z+1], center=true);
 
     // frontEdge
     translate([0, -1*sin(FRONT_EDGE_DEG), -1*cos(FRONT_EDGE_DEG)])
@@ -156,16 +153,24 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = true) {
     // frontEdgeTop
     translate([0, -1*sin(FRONT_EDGE_TOP_DEG), -1*cos(FRONT_EDGE_TOP_DEG)])
     frontEdgeTop(binSize);
+	
+	
+	if (mountPoints) {
+		for (y=[binSize.y/4 + 3,-binSize.y/4 - 3]) for (z=[binSize.z - WALL_THICK - 1.5, WALL_THICK + 1.25]) {
+			translate([0,y,z]) rotate([0,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+			translate([0,binSize.y/2,z]) rotate([0,90,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+		}
+	}
   }
 }
 
 
 module frontEdge(binSize) {
-        translate([0, -binSize[1]/2, 0])
+        translate([0, -binSize.y/2, 0])
         rotate([FRONT_EDGE_DEG, 0, 0])
         cube(
             size=[
-                binSize[0]+10,
+                binSize.x+10,
                 FRONT_EDGE_LEN*2*sin(FRONT_EDGE_DEG),
                 FRONT_EDGE_LEN*2*cos(FRONT_EDGE_DEG)
             ],
@@ -174,11 +179,11 @@ module frontEdge(binSize) {
 }
 
 module frontEdgeTop(binSize) {
-    translate([0, -binSize[1]/2, binSize[2]])
+    translate([0, -binSize.y/2, binSize.z])
     rotate([180-FRONT_EDGE_TOP_DEG, 0, 0])
     cube(
         size=[
-          binSize[0]+10,
+          binSize.x+10,
           FRONT_EDGE_TOP_LEN*2*sin(FRONT_EDGE_TOP_DEG),
           FRONT_EDGE_TOP_LEN*2*cos(FRONT_EDGE_TOP_DEG)
         ],
