@@ -3,9 +3,6 @@
     "parameterSets": {
         "New set 1": {
             "$fn": "30",
-            "BODY_X": "80",
-            "BODY_Y": "110",
-            "BODY_Z": "47",
             "CUTOUT": "-1",
             "MOUNT": "1",
             "PLACEHOLDER": "0"

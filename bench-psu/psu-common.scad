@@ -42,12 +42,7 @@ include <scad-utils/morphology.scad>
 
 $fn=30;
 
-/* Parameters */
-BODY_X = 80;
-BODY_Y = 110;
-BODY_Z = 47;
-
-module binBase(binSize, r=1) {
+module binBase(binSize, style="slope", r=1) {
   basePoints = [
     [binSize.x/2, 0],
     [0, 0],
@@ -86,13 +81,13 @@ HOLDER_Z = HOLDER_Z_TOTAL - HOLDER_Z_JOINT;
 HOLDER_DELTA = 0.8+0.4*4;
 HOLDER_CLEARANCE = 0.4*2;
 
-FRONT_EDGE_DEG = 35;
-FRONT_EDGE_LEN = 20;
+EDGE = 0;
+EDGE_TOP = 1;
+DEG = 0;
+LEN = 1;
 
-FRONT_EDGE_TOP_DEG = 30;
-FRONT_EDGE_TOP_LEN = 25;
 
-module binBody(binSize=[80,110,47], style = "slope", mountPoints = false) {
+module binBody(binSize=[80,110,47], frontStyle=[[30,20],[30,30]], mountPoints = false) {
   difference() {
     union() {
       // inner
@@ -128,12 +123,12 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = false) {
     // inner space
     difference() {
       translate([0, 0, 1])
-      linear_extrude(height=BODY_Z, center=!true, convexity=10, twist=0)
+      linear_extrude(height=binSize.z, center=!true, convexity=10, twist=0)
       offset(r=-WALL_THICK)
       binBase(binSize=binSize);
 
       // frontEdge
-      frontEdge(binSize = binSize);
+      frontEdge(binSize = binSize, frontStyle = frontStyle);
     }
 
     // holder inner space
@@ -143,16 +138,16 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = false) {
     binBase(binSize=binSize);
 
     // front space
-    translate([0, -binSize.y/2, binSize.z/2 + FRONT_EDGE_LEN + 1])
+    translate([0, -binSize.y/2, binSize.z/2 + frontStyle[EDGE][LEN] + 1])
     cube(size=[binSize.x-WALL_THICK*2, 10, binSize.z+1], center=true);
 
     // frontEdge
-    translate([0, -1*sin(FRONT_EDGE_DEG), -1*cos(FRONT_EDGE_DEG)])
-    frontEdge(binSize = binSize);
+    translate([0, -1*sin(frontStyle[EDGE][DEG]), -1*cos(frontStyle[EDGE][DEG])])
+    frontEdge(binSize = binSize, frontStyle = frontStyle);
 
     // frontEdgeTop
-    translate([0, -1*sin(FRONT_EDGE_TOP_DEG), -1*cos(FRONT_EDGE_TOP_DEG)])
-    frontEdgeTop(binSize);
+    translate([0, -1*sin(frontStyle[EDGE_TOP][DEG]), -1*cos(frontStyle[EDGE_TOP][DEG])])
+    frontEdgeTop(binSize = binSize, frontStyle = frontStyle);
 	
 	
 	if (mountPoints) {
@@ -165,27 +160,27 @@ module binBody(binSize=[80,110,47], style = "slope", mountPoints = false) {
 }
 
 
-module frontEdge(binSize) {
+module frontEdge(binSize, frontStyle) {
         translate([0, -binSize.y/2, 0])
-        rotate([FRONT_EDGE_DEG, 0, 0])
+        rotate([frontStyle[EDGE][DEG], 0, 0])
         cube(
             size=[
                 binSize.x+10,
-                FRONT_EDGE_LEN*2*sin(FRONT_EDGE_DEG),
-                FRONT_EDGE_LEN*2*cos(FRONT_EDGE_DEG)
+                frontStyle[EDGE][LEN]*2*sin(frontStyle[EDGE][DEG]),
+                frontStyle[EDGE][LEN]*2*cos(frontStyle[EDGE][DEG])
             ],
             center=true
         );
 }
 
-module frontEdgeTop(binSize) {
+module frontEdgeTop(binSize, frontStyle) {
     translate([0, -binSize.y/2, binSize.z])
-    rotate([180-FRONT_EDGE_TOP_DEG, 0, 0])
+    rotate([180-frontStyle[EDGE_TOP][DEG], 0, 0])
     cube(
         size=[
           binSize.x+10,
-          FRONT_EDGE_TOP_LEN*2*sin(FRONT_EDGE_TOP_DEG),
-          FRONT_EDGE_TOP_LEN*2*cos(FRONT_EDGE_TOP_DEG)
+          frontStyle[EDGE_TOP][LEN]*2*sin(frontStyle[EDGE_TOP][DEG]),
+          frontStyle[EDGE_TOP][LEN]*2*cos(frontStyle[EDGE_TOP][DEG])
         ],
         center=true
     );
