@@ -1,11 +1,6 @@
 {
     "fileFormatVersion": "1",
     "parameterSets": {
-        "New set 1": {
-            "$fn": "30",
-            "CUTOUT": "-1",
-            "MOUNT": "1",
-            "PLACEHOLDER": "0"
-        }
+        "New set 1": ""
     }
 }

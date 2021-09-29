@@ -34,6 +34,11 @@
 CUTOUT = -1;
 PLACEHOLDER = 0;
 MOUNT = 1;
+INCH = 25.4;
+
+FUDGE_DISTANCE = .2;
+
+testShape();
 
 /***** CORE BIN SHAPE *****/
 
@@ -81,13 +86,13 @@ HOLDER_Z = HOLDER_Z_TOTAL - HOLDER_Z_JOINT;
 HOLDER_DELTA = 0.8+0.4*4;
 HOLDER_CLEARANCE = 0.4*2;
 
-EDGE = 0;
+EDGE_BOTTOM = 0;
 EDGE_TOP = 1;
 DEG = 0;
 LEN = 1;
 
 
-module binBody(binSize=[80,110,47], frontStyle=[[30,20],[30,30]], mountPoints = false) {
+module binBody(binSize=[80,110,47], frontStyle=[[30,20],[30,30]], mountPoints = false, floorGrating = false) {
   difference() {
     union() {
       // inner
@@ -138,36 +143,44 @@ module binBody(binSize=[80,110,47], frontStyle=[[30,20],[30,30]], mountPoints = 
     binBase(binSize=binSize);
 
     // front space
-    translate([0, -binSize.y/2, binSize.z/2 + frontStyle[EDGE][LEN] + 1])
+    translate([0, -binSize.y/2, binSize.z/2 + frontStyle[EDGE_BOTTOM][LEN] + 1])
     cube(size=[binSize.x-WALL_THICK*2, 10, binSize.z+1], center=true);
 
     // frontEdge
-    translate([0, -1*sin(frontStyle[EDGE][DEG]), -1*cos(frontStyle[EDGE][DEG])])
+    translate([0, -1*sin(frontStyle[EDGE_BOTTOM][DEG]), -1*cos(frontStyle[EDGE_BOTTOM][DEG])])
     frontEdge(binSize = binSize, frontStyle = frontStyle);
 
     // frontEdgeTop
     translate([0, -1*sin(frontStyle[EDGE_TOP][DEG]), -1*cos(frontStyle[EDGE_TOP][DEG])])
     frontEdgeTop(binSize = binSize, frontStyle = frontStyle);
 	
+	// ventilation
+	if (floorGrating) {
+		linear_extrude(5, center=true) fillShadow() linear_extrude(3) binBase(binSize=binSize);
+	}
 	
 	if (mountPoints) {
-		for (y=[binSize.y/4 + 3,-binSize.y/4 - 3]) for (z=[binSize.z - WALL_THICK - 1.5, WALL_THICK + 1.25]) {
+		for (y=[binSize.y/4 + 3, -binSize.y/4 - 3]) for (z=[binSize.z - WALL_THICK - 1.5, WALL_THICK + 1.25]) {
 			translate([0,y,z]) rotate([0,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+			
 			translate([0,binSize.y/2,z]) rotate([0,90,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+			
+			// Screw notches for the lower holes
+			for (x=[-binSize.x/2 + WALL_THICK*1.6, binSize.x/2 - WALL_THICK*1.6]) translate([x,y,0]) cube([2,4.5,4.5], center=true);
+			translate([0,binSize.y/2 - 3 - WALL_THICK*1.6,0]) rotate([0,0,90]) cube([2,4.5,4.5], center=true);
 		}
 	}
   }
 }
 
-
 module frontEdge(binSize, frontStyle) {
         translate([0, -binSize.y/2, 0])
-        rotate([frontStyle[EDGE][DEG], 0, 0])
+        rotate([frontStyle[EDGE_BOTTOM][DEG], 0, 0])
         cube(
             size=[
                 binSize.x+10,
-                frontStyle[EDGE][LEN]*2*sin(frontStyle[EDGE][DEG]),
-                frontStyle[EDGE][LEN]*2*cos(frontStyle[EDGE][DEG])
+                frontStyle[EDGE_BOTTOM][LEN]*2*sin(frontStyle[EDGE_BOTTOM][DEG]),
+                frontStyle[EDGE_BOTTOM][LEN]*2*cos(frontStyle[EDGE_BOTTOM][DEG])
             ],
             center=true
         );
@@ -195,7 +208,7 @@ module frontEdgeTop(binSize, frontStyle) {
 // 5.5mm x 2.1mm DC jacks. https://www.amazon.com/gp/product/B091PS6XQ4
 module dcJack(mode = PLACEHOLDER) {
     if (mode == CUTOUT) {
-        cylinder(d=10.6, h=10, center=true);
+        cylinder(d=10.6 + FUDGE_DISTANCE*2, h=10, center=true);
     } else if (mode == PLACEHOLDER) {
         color("silver") {
             rotate([0,180]) cylinder(d=10.6, h=14.85);
@@ -212,9 +225,11 @@ module dcJack(mode = PLACEHOLDER) {
 module xt60(mode = CUTOUT) {
     if (mode == CUTOUT) {
         linear_extrude(10, center=true) {
-            translate([2,0]) square([11.6, 8], center=true);
-            translate([-4,0]) circle(d=8);
-            for (x=[-.5,.5]) translate([20.46*x, 0]) circle(d=2.8);
+			offset(FUDGE_DISTANCE) {
+				translate([2,0]) square([11.6, 8], center=true);
+				translate([-4,0]) circle(d=8 + FUDGE_DISTANCE);
+				for (x=[-.5,.5]) translate([20.46*x, 0]) circle(d=2.8);
+			}
         }
     } else if (mode == PLACEHOLDER) {
         difference() {
@@ -242,7 +257,7 @@ module xt60(mode = CUTOUT) {
 // Screw-in fuse. https://www.amazon.com/gp/product/B07BVP8W16
 module fuse(mode = CUTOUT) {
     if (mode == CUTOUT) {
-        cylinder(d=11.6, h=10, center=true);
+        cylinder(d=11.6 + FUDGE_DISTANCE*2, h=10, center=true);
     } else if (mode == PLACEHOLDER) {
         color("black") {
             rotate([0,180]) {
@@ -262,8 +277,8 @@ module fuse(mode = CUTOUT) {
 // Heavy toggle switch. https://www.amazon.com/gp/product/B09232WFXS
 module switch(mode = CUTOUT) {
     if (mode == CUTOUT) {
-        cylinder(d=20, h=10, center=true);
-        translate([10,0,0]) cube([2,2,10], center=true);
+        cylinder(d=20 + FUDGE_DISTANCE*2, h=10, center=true);
+        translate([10,0,0]) cube([2 + FUDGE_DISTANCE*2,2 + FUDGE_DISTANCE*2,10], center=true);
     } else if (mode == PLACEHOLDER) {
         color("black") {
             rotate([0,180]) {
@@ -290,7 +305,8 @@ module switch(mode = CUTOUT) {
 // Digital volt/amp meter. https://www.amazon.com/gp/product/B08HQM1RMF
 module multiMeter(mode = CUTOUT) {
     if (mode == CUTOUT) {
-        cube([45.5,26,15], center=true);
+        cube([45.5 + FUDGE_DISTANCE*2,26 + FUDGE_DISTANCE*2,15 + FUDGE_DISTANCE*2], center=true);
+        cube([22 + FUDGE_DISTANCE*2, 28 + FUDGE_DISTANCE*2, 15 + FUDGE_DISTANCE*2], center=true);
     } else if (mode == PLACEHOLDER) {
         color("black") {
             translate([0,0,-15]) linear_extrude(15) square([45.5,26], center=true);
@@ -305,10 +321,10 @@ module multiMeter(mode = CUTOUT) {
 module bananaPlugs(mode = CUTOUT) {
     if (mode == CUTOUT) {
         for (x=[-1,1]) 
-            translate([(4.85 + 14.6)/2 * x,0])
-                cylinder(d=5, h=10, center=true);
+            translate([(4.8 + 14.6)/2 * x,0])
+                cylinder(d=5 + FUDGE_DISTANCE*2, h=10, center=true);
     } else if (mode == PLACEHOLDER) {
-        for (x=[-1,1]) translate([(4.85 + 14.6)/2 * x, 0]) {
+        for (x=[-1,1]) translate([(4.8 + 14.6)/2 * x, 0]) {
             color("silver") {
                 translate([0,0, -19.5]) cylinder(d=4, h=29.5); // Screws
                 translate([0,0,-7.8]) cylinder(h=2.8, d=9, $fn=6); // Hex nuts
@@ -322,7 +338,7 @@ module bananaPlugs(mode = CUTOUT) {
                 }
             }
         }
-        color("black") for (z=[.2, -5.1]) translate([0,0,z]) {
+        color("black") for (z=[.2, -5]) translate([0,0,z]) {
             linear_extrude(4.9) offset(7.49) offset(-7.49) square([34,15], center=true);
         }
 
@@ -333,9 +349,12 @@ module bananaPlugs(mode = CUTOUT) {
 module jstMale(mode = MOUNT) {
     if (mode == MOUNT) {
         for (x=[-.5, .5]) {
-            translate([22.25 * x, 2.54/2, -2.2]) cylinder(d=4.8, h=5, center=true);
+            translate([22.25 * x, 2.54/2, -2.2]) cylinder(d=6, h=5, center=true);
         }
-        translate([0,0,-2.2]) cube([25.4,12,5], center=true);
+		hull() {
+			translate([0,0,-2.2]) cube([25.4,12,5], center=true);
+			translate([5,0,.2]) cube([30.4,12,.2], center=true);
+		}
     } else if (mode == CUTOUT) {
         for (x=[-.5, .5]) {
             translate([22.25 * x, 2.54/2]) cylinder(d=2.8, h=15, center=true);
@@ -369,10 +388,10 @@ module jstMale(mode = MOUNT) {
 }
 
 // Programmable bench PSU converter. https://www.amazon.com/gp/product/B07PV6FJSL
-module benchPSU(mode = CUTOUT) {
+module benchPSU(mode = MOUNT) {
     if (mode == MOUNT) {
         for (x=[-.5, .5]) for (y=[-.5,.5]) {
-            translate([86.25 * x, 63.8 * y]) screwRiser(d=3, h=7.5);
+            translate([86.25 * x, 63.8 * y]) screwRiser(d=3, h=6.5);
         }
     } else if (mode == PLACEHOLDER) {
         color("darkgreen") difference() {
@@ -390,9 +409,35 @@ module benchPSU(mode = CUTOUT) {
 }
 
 // Programmable bench PSU converter. https://www.amazon.com/gp/product/B07PV6FJSL
+module benchPSUPort(mode = CUTOUT) {
+    if (mode == MOUNT) {
+        difference() {
+			translate([10,0,-5]) cube([20,25,16], center=true);
+			translate([6,0,2]) cube([8,19.5,4.2], center=true);
+			translate([18,0,0]) linear_extrude(5) square([30, 19], center=true);
+			for (y=[-7,7]) translate([4.5,y,-3]) cylinder(d=2.6, h=20, center=true);
+			translate([15,0,-16]) rotate([0,-30]) cube([30,26,20], center=true);
+		}
+
+    } else if (mode == CUTOUT) {
+		translate([0,0,3]) cube([10,10,6], center=true);
+    } else if (mode == PLACEHOLDER) {
+		translate([18,0]) {
+			difference() {
+				color("darkgreen") linear_extrude(1.6) square([30, 19], center=true);
+				for (y=[-7,7]) translate([-12.5,y]) cylinder(d=2.6, h=10, center=true);
+			}
+			color("white") translate([9,-5,3.25]) cube([3.5, 6.5, 6.5], center=true);
+			color("silver") translate([-12, 0, 3]) cube([7.5,5.5,2.5], center=true);
+		}
+    }
+}
+
+// Programmable bench PSU converter. https://www.amazon.com/gp/product/B07PV6FJSL
 module benchPSUControl(mode = CUTOUT) {
     if (mode == CUTOUT) {
-        cube([71.6,39.5,25.5], center=true);
+        cube([71.6 + FUDGE_DISTANCE*2,39.5 + FUDGE_DISTANCE*2,25.5 + FUDGE_DISTANCE*2], center=true);
+        cube([76 + FUDGE_DISTANCE*2,12 + FUDGE_DISTANCE*2,25.5 + FUDGE_DISTANCE*2], center=true);
     } else if (mode == PLACEHOLDER) {
         color("darkgrey") {
             translate([0,0,-25.5]) linear_extrude(25.5) square([71.6,39.5], center=true);
@@ -406,17 +451,76 @@ module benchPSUControl(mode = CUTOUT) {
     }
 }
 
+
+
+
 // Quickcharge compatible USB converters. https://www.amazon.com/gp/product/B087RHWTJW
 module usbPort(mode = CUTOUT) {
     if (mode == CUTOUT) {
-        cube([13.2,5.8,10], center=true);
+        cube([13.2 + FUDGE_DISTANCE,5.8 + FUDGE_DISTANCE,10 + FUDGE_DISTANCE], center=true);
     } else if (mode == MOUNT) {
         // Something that wraps around the port? Slide rails for the boards?
+		difference() {
+			hull() {
+				translate([0,-13,0]) linear_extrude(1) square([10,1.6], center=true);
+				translate([0,-4.6,-22]) linear_extrude(22) square([20,3], center=true);
+			}
+			#translate([0,-3.25,-34]) linear_extrude(34) square([17.2,3.5], center=true);
+		}
     } else if (mode == PLACEHOLDER) {
         color("silver") translate([0,0,-9]) linear_extrude(10) offset(.5) offset(-.5) square([13.2,5.8], center=true);
         color("darkgreen") translate([0,-4,-34]) linear_extrude(34) square([17,1.6], center=true);
     }
 }
+
+// Micro USB breakout board. https://www.amazon.com/gp/product/B07W6T97HZ
+module usbMicroPort(mode = CUTOUT) {
+    if (mode == CUTOUT) {
+        cube([10 + FUDGE_DISTANCE,5 + FUDGE_DISTANCE,10 + FUDGE_DISTANCE], center=true);
+    } else if (mode == MOUNT) {
+        // Something that wraps around the port? Slide rails for the boards?
+		difference() {
+			hull() {
+				translate([0,-12,0]) linear_extrude(2) square([12.8,1.6], center=true);
+				translate([0,-3.9,-14.2]) linear_extrude(14.2) square([12.8,1.6], center=true);
+			}
+			translate([-4.7, -4, -6.2]) rotate([90,0]) cylinder(d=3, h=12, center=true);
+			translate([4.7, -4, -6.2]) rotate([90,0]) cylinder(d=3, h=12, center=true);
+		}
+    } else if (mode == PLACEHOLDER) {
+        color("silver") translate([0,0,-4.7]) linear_extrude(5.7) offset(.5) offset(-.5) square([7.5,2.75], center=true);
+        color("darkgreen") difference() {
+			translate([0,-2.3,-14.2]) linear_extrude(14.2) square([12.8,1.6], center=true);
+			translate([-4.7, -4, -6.2]) rotate([90,0]) cylinder(d=3, h=6, center=true);
+			translate([4.7, -4, -6.2]) rotate([90,0]) cylinder(d=3, h=6, center=true);
+		}
+    }
+}
+
+// USB-C breakout board. https://www.amazon.com/gp/product/B096M2HQLK
+module usbCPort(mode = CUTOUT) {
+    if (mode == CUTOUT) {
+        cube([10 + FUDGE_DISTANCE,5 + FUDGE_DISTANCE,10 + FUDGE_DISTANCE], center=true);
+    } else if (mode == MOUNT) {
+        // Something that wraps around the port? Slide rails for the boards?
+		difference() {
+			hull() {
+				translate([0,-12,0]) linear_extrude(2) square([INCH * .85,1.6], center=true);
+				translate([0,-3.9,-INCH * .5]) linear_extrude(INCH * .5) square([INCH * .85,1.6], center=true);
+			}
+			translate([-INCH * .325, -5, -2.3]) rotate([90,0]) cylinder(d=3, h=20, center=true);
+			translate([INCH * .325, -5, -2.3]) rotate([90,0]) cylinder(d=3, h=20, center=true);
+		}
+    } else if (mode == PLACEHOLDER) {
+        color("silver") translate([0,0,-6.5]) linear_extrude(7.5) offset(.5) offset(-.5) square([8.9,3.27], center=true);
+        color("darkgreen") difference() {
+			translate([0,-2.5,-(INCH * .5)]) linear_extrude(INCH * .5) square([INCH * .85,1.6], center=true);
+			translate([-INCH * .325, -5, -2.3]) rotate([90,0]) cylinder(d=3, h=10, center=true);
+			translate([INCH * .325, -5, -2.3]) rotate([90,0]) cylinder(d=3, h=10, center=true);
+		}
+    }
+}
+
 
 // ATX breakout board. https://www.amazon.com/gp/product/B08MC389FQ
 module atxBreakout(mode = MOUNT) {
@@ -444,10 +548,10 @@ module atxBreakout(mode = MOUNT) {
 }
 
 // DC screw terminal block. https://www.amazon.com/gp/product/B08TBXQ7H6
-module terminalBlock(mode = CUTOUT) {
+module terminalBlock(mode = MOUNT, draftDirection = 0) {
     if (mode == MOUNT) {
         for (x=[-.5, .5]) {
-            translate([89.6 * x, 0]) screwRiser(d=2.8, h=10);
+            translate([89.6 * x, 0]) screwRiser(d=2.8, h=10, draftDirection=draftDirection);
         }
     } else if (mode == PLACEHOLDER) {
         color("darkgreen") difference() {
@@ -463,15 +567,61 @@ module terminalBlock(mode = CUTOUT) {
     }
 }
 
-
-
-module screwRiser(d=3.2, h=5) {
+module screwRiser(d=3.2, h=5, draftDirection = 0) {
     difference() {
-        union() {
-            cylinder(d=d+4, h=h);
-            cylinder(d1=d+6.5, d2=d+4, h=h/2);
-            cylinder(d1=d+8, d2=d+4, h=h/3);
-        }
+		hull() {
+			cylinder(d1=d+8, d2=d+4, h=h);
+			
+			if (draftDirection==1) translate([h,0,0]) cylinder(d=2, h=1);
+			else if (draftDirection==2) translate([0,h,0]) cylinder(d=2, h=1);
+			else if (draftDirection==3) translate([-h,0,0]) cylinder(d=2, h=1);
+			else if (draftDirection==4) translate([0,-h,0]) cylinder(d=2, h=1);
+		}
         cylinder(d=d, h=h*2+20, center=true);
     }
+}
+
+module studRiser(d=3, h=10) {
+	cylinder(d=d, h=h);
+	cylinder(d1=d*4, h=d*2);
+}
+
+/* Takes a 3D object, casts a shadow of it, and cuts vent lines in the shadow. */
+module fillShadow() {
+    minkowski() {
+        difference() {
+            offset(-10) projection() children();
+            for (x = [-200 : 10 : 200]) {
+                translate([x,0,0]) rotate(45) square([5 ,2000], center=true);
+            }
+        }
+        circle(d=2, $fn = 5*6);
+    }
+}
+
+
+
+/* Scratchpad function for testing sub-modules */
+
+module testShape() {
+	difference() {
+		translate([0,-1,0]) cube([60,2,60], center=true);
+		rotate([90,0,0]) {
+			translate([-20,0]) usbPort(mode=CUTOUT);
+			translate([0,0]) usbMicroPort(mode=CUTOUT);
+			translate([20,0]) usbCPort(mode=CUTOUT);
+		}
+	}
+
+	rotate([90,0,0]) {
+		translate([-20,0]) usbPort(mode=MOUNT);
+		translate([0,0]) usbMicroPort(mode=MOUNT);
+		translate([20,0]) usbCPort(mode=MOUNT);
+	}
+
+	rotate([90,0,0]) {
+		translate([-20,0]) usbPort(mode=PLACEHOLDER);
+		translate([0,0]) usbMicroPort(mode=PLACEHOLDER);
+		translate([20,0]) usbCPort(mode=PLACEHOLDER);
+	}
 }

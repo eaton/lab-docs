@@ -22,41 +22,108 @@
  
 include <psu-common.scad>;
 
-fixedVoltageModule();
+usbModule();
 
-
-module fixedVoltageModule(mode = "preview") {
-    difference() {
-        union() {
-            translate([0,55]) binBody(binSize=[140,120,50], mountPoints = true);
-            translate([10,85,1.2]) terminalBlock(mode=MOUNT);
-        }
-        translate([-65,65,15]) rotate([90,0,-90]) switch(mode=CUTOUT);
-        translate([-65,40,15]) rotate([90,0,-90]) fuse(mode=CUTOUT);
-        translate([-48,115,15]) rotate([90,0,180]) xt60(mode=CUTOUT);
-    }
-
-    /*
-	union() {
-        translate([10,85,1.2]) terminalBlock(mode=PLACEHOLDER);
-        translate([7.5,3,30]) rotate([60,0]) examplePanel();
-        translate([-65,65,15]) rotate([90,0,-90]) switch(mode=PLACEHOLDER);
-        translate([-65,40,15]) rotate([90,0,-90]) fuse(mode=PLACEHOLDER);
-        translate([-48,115,15]) rotate([90,0,180]) xt60(mode=PLACEHOLDER);
-    }
-	*/
+module footModule() {
+	translate([0,55]) binBody(binSize=[140,120,25], frontStyle=[[0,50],[0,0]], mountPoints = true);
 }
 
-module examplePanel() {
-    translate([45,0]) {
-        translate([-15,8]) dcJack(PLACEHOLDER);
-        translate([-15,-8]) dcJack(PLACEHOLDER);
-        translate([2.5,0,-1]) rotate([0,0,-90]) jstMale(mode=PLACEHOLDER);
+module holderModule() {
+	translate([0,55]) binBody(binSize=[140,120,40], frontStyle=[[0,10],[30,30]], mountPoints = true);
+	for (x=[-45,-15,15,45]) {
+		hull() {
+			translate([x,55]) linear_extrude(10) square([1.2,120], center=true);
+			translate([x,80]) linear_extrude(30) square([1.2,60], center=true);
+		}
+	}
+}
+
+module usbModule() {
+    difference() {
+        union() {
+            translate([0,55]) binBody(binSize=[140,120,45], frontStyle=[[0,45],[0,0]], mountPoints = true);
+            translate([15,65]) rotate([0,0,-45]) terminalBlock(mode=MOUNT);
+
+			translate([7.5,-5,20]) rotate([90,0,0]) {
+				translate([20,0]) {
+					for (x=[-1,0,1]) for (y=[-1,1]) {
+						translate([20*x,6*y]) usbPort();
+					}
+				}
+				translate([-45,0]) multiMeter(mode=MOUNT);
+			}
+
+        }
+        standardHoles();
+		
+		translate([7.5,-5,20]) rotate([90,0,0]) {
+			translate([20,0]) {
+				for (x=[-1,0,1]) for (y=[-1,1]) {
+					translate([20*x,6*y]) usbPort();
+				}
+			}
+			translate([-45,0]) multiMeter(mode=CUTOUT);
+		}
     }
-    
-    translate([-0,0]) {
-        translate([-45,0]) multiMeter(mode=PLACEHOLDER);
-        translate([-0,9]) bananaPlugs(mode=PLACEHOLDER);
-        translate([-0,-9]) bananaPlugs(mode=PLACEHOLDER);
+}
+
+
+
+module variableModule() {
+    difference() {
+        union() {
+            translate([0,55]) binBody(binSize=[140,120,60], frontStyle=[[0,60],[0,0]], mountPoints = true, floorGrating=true);
+			translate([0,70,0]) benchPSU();
+            translate([70,60,30]) rotate([90,0,-90]) terminalBlock(mode=MOUNT, draftDirection=4);
+			translate([7.5,-5,20]) rotate([90,0,0]) {
+				translate([49.5,5,-1]) rotate([0,0,-90]) jstMale(mode=MOUNT);
+			}
+			translate([-67,55,40]) benchPSUPort(mode=MOUNT);
+        }
+		// Nuke the fuse from this one, we'll put it on the PSU side since it's single-source.
+		// translate([-65,40,35]) rotate([90,0,-90]) fuse(mode=CUTOUT);
+		translate([-48,115,40]) rotate([90,0,180]) xt60(mode=CUTOUT);
+		translate([-66,55,40]) benchPSUPort(mode=CUTOUT);
+	
+		translate([7.5,-5,20]) rotate([90,0,0]) {
+			translate([45,0]) {
+				translate([-12,14]) dcJack(CUTOUT);
+				translate([-12,-2]) dcJack(CUTOUT);
+				translate([4.5,5,-1]) rotate([0,0,-90]) jstMale(mode=CUTOUT);
+			}
+			translate([-35,8]) benchPSUControl(mode=CUTOUT);
+			translate([15,6]) rotate([0,0,90]) bananaPlugs(mode=CUTOUT);
+		}
     }
+}
+
+module fixedModule() {
+    difference() {
+        union() {
+            translate([0,55]) binBody(binSize=[140,120,52], frontStyle=[[0,52],[0,0]], mountPoints = true, floorGrating=true);
+            translate([15,65]) rotate([0,0,-45]) terminalBlock(mode=MOUNT);
+
+			translate([7.5,-5,20]) rotate([90,0,0]) {
+				translate([48.5,2,-1]) rotate([0,0,-90]) jstMale(mode=MOUNT);
+			}
+        }
+        translate([0,0,2]) standardHoles();
+		
+		translate([7.5,-5,20]) rotate([90,0,0]) {
+			translate([45,0]) {
+				translate([-15,10]) dcJack(mode=CUTOUT);
+				translate([-15,-6]) dcJack(mode=CUTOUT);
+				translate([3.5,2,-1]) rotate([0,0,-90]) jstMale(mode=CUTOUT);
+			}
+			translate([-45,2]) multiMeter(mode=CUTOUT);
+			translate([2,10]) bananaPlugs(mode=CUTOUT);
+			translate([2,-6]) bananaPlugs(mode=CUTOUT);
+		}
+    }
+}
+
+module standardHoles() {
+	translate([-65,65,20]) rotate([90,180,-90]) switch(mode=CUTOUT);
+	translate([-65,40,20]) rotate([90,0,-90]) fuse(mode=CUTOUT);
+	translate([-48,115,20]) rotate([90,0,180]) xt60(mode=CUTOUT);
 }
