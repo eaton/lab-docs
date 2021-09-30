@@ -41,29 +41,38 @@ module holderModule() {
 module usbModule() {
     difference() {
         union() {
-            translate([0,55]) binBody(binSize=[140,120,45], frontStyle=[[0,45],[0,0]], mountPoints = true);
-            translate([15,65]) rotate([0,0,-45]) terminalBlock(mode=MOUNT);
+            translate([0,55]) binBody(binSize=[140,120,45], frontStyle=[[0,45],[0,0]], mountPoints = true, floorGrating = true);
+            translate([10,95]) rotate([0,0,0]) { terminalBlock(mode=MOUNT); } // terminalBlock(mode=PLACEHOLDER); }
 
-			translate([7.5,-5,20]) rotate([90,0,0]) {
-				translate([20,0]) {
-					for (x=[-1,0,1]) for (y=[-1,1]) {
-						translate([20*x,6*y]) usbPort();
+			translate([7.5,-3.25,20]) rotate([90,0,0]) {
+				translate([7.5,-1]) {
+					for (x=[-1,1]) for (y=[-1,1]) {
+						translate([10*x,8.5*y]) usbPort(mode=MOUNT);
 					}
 				}
 				translate([-45,0]) multiMeter(mode=MOUNT);
+				
+				translate([42,7.5,-.75]) usbMicroPort(mode=MOUNT);
+				translate([42,-9.5,0]) usbCPort(mode=MOUNT);
 			}
 
+			translate([66,55,20]) rotate([270,0,90]) { dcConverter(mode=MOUNT); } // translate([0,0,5]) dcConverter(mode=PLACEHOLDER); }
         }
         standardHoles();
 		
 		translate([7.5,-5,20]) rotate([90,0,0]) {
-			translate([20,0]) {
-				for (x=[-1,0,1]) for (y=[-1,1]) {
-					translate([20*x,6*y]) usbPort();
+			translate([7.5,-1]) {
+				for (x=[-1,1]) for (y=[-1,1]) {
+					translate([10*x,8.5*y]) usbPort(mode=CUTOUT);
 				}
 			}
 			translate([-45,0]) multiMeter(mode=CUTOUT);
+
+			translate([42,7.5,0]) usbMicroPort(mode=CUTOUT);
+			translate([42,-9.5,0])usbCPort(mode=CUTOUT);
 		}
+		translate([0,0,-5]) linear_extrude(5) square([400,400], center=true);
+		translate([0,-5,0]) rotate([90,0,0]) linear_extrude(2) square([200,40], center=true);
     }
 }
 

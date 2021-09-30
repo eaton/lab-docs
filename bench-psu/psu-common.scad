@@ -38,8 +38,6 @@ INCH = 25.4;
 
 FUDGE_DISTANCE = .2;
 
-testShape();
-
 /***** CORE BIN SHAPE *****/
 
 include <scad-utils/mirror.scad>
@@ -461,17 +459,26 @@ module usbPort(mode = CUTOUT) {
     } else if (mode == MOUNT) {
         // Something that wraps around the port? Slide rails for the boards?
 		difference() {
-			hull() {
-				translate([0,-13,0]) linear_extrude(1) square([10,1.6], center=true);
-				translate([0,-4.6,-22]) linear_extrude(22) square([20,3], center=true);
+			union() {
+				hull() {
+					translate([0,-13,0]) linear_extrude(1) square([10,1.6], center=true);
+					translate([0,-4.6,-12]) linear_extrude(12) square([20,3], center=true);
+				}
+				hull() {
+					translate([0,-13,0]) linear_extrude(1) square([4,1.6], center=true);
+					translate([0,-4.6,-36.5]) linear_extrude(34.5) square([4,6], center=true);
+				}
 			}
-			#translate([0,-3.25,-34]) linear_extrude(34) square([17.2,3.5], center=true);
+			translate([0,-3.25,-34.5]) linear_extrude(35) square([17.2,3.8], center=true);
 		}
+		translate([0,-1.5,-35]) rotate([0,90,0]) cylinder(h=4, d=2.75, center=true, $fn=6);
     } else if (mode == PLACEHOLDER) {
         color("silver") translate([0,0,-9]) linear_extrude(10) offset(.5) offset(-.5) square([13.2,5.8], center=true);
         color("darkgreen") translate([0,-4,-34]) linear_extrude(34) square([17,1.6], center=true);
     }
 }
+
+// testShape();
 
 // Micro USB breakout board. https://www.amazon.com/gp/product/B07W6T97HZ
 module usbMicroPort(mode = CUTOUT) {
@@ -565,6 +572,22 @@ module terminalBlock(mode = MOUNT, draftDirection = 0) {
             translate([36.8,0]) square([10.11, 15.6], center=true);
         }
     }
+}
+
+module dcConverter(mode=MOUNT, draftDirection = 0) {
+    if (mode == MOUNT) {
+		translate([53.5/2 - 10,-12+2.7]) screwRiser(h=5, draftDirection = draftDirection);
+		translate([-53.5/2 + 10,12-2.7]) screwRiser(h=5, draftDirection = draftDirection);
+    } else if (mode == PLACEHOLDER) {
+		color("darkblue")  difference() {
+			linear_extrude(1.6) square([53.5, 24], center=true);
+			translate([53.5/2 - 10,-12+2.7]) cylinder(d=3.6, h=5, center=true);
+			translate([-53.5/2 + 10,12-2.7]) cylinder(d=3.6, h=5, center=true);
+		}
+		color("silver") for (x=[-53.5/2 + 6,53.5/2 - 6]) translate([x,0,1.6]) cylinder(d=10, h=10);
+		color("blue") translate([3,-12+3,9.5/2 + 1.6]) cube([9.5, 4.5, 9.5], center=true);
+		color("gold") translate([-9,-1,8]) rotate([-90,0,0]) cylinder(d=12, h=5.75, center=true);
+	}
 }
 
 module screwRiser(d=3.2, h=5, draftDirection = 0) {
