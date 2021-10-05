@@ -22,7 +22,26 @@
  
 include <psu-common.scad>;
 
-usbModule();
+handleModule();
+
+module handleModule(buildHandles = false, addFan = false) {
+	difference() {
+		union() {
+			binCap(binSize=[140,120,7.5]);
+			if (addFan) {
+			}
+			
+			if (buildHandles) {
+			}
+		}
+		
+		if (addFan) {
+		}
+		
+		if (buildHandles) {
+		}
+	}
+}
 
 module footModule() {
 	translate([0,55]) binBody(binSize=[140,120,25], frontStyle=[[0,50],[0,0]], mountPoints = true);

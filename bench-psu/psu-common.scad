@@ -171,6 +171,36 @@ module binBody(binSize=[80,110,47], frontStyle=[[30,20],[30,30]], mountPoints = 
   }
 }
 
+
+module binCap(binSize) {
+  difference() {
+    union() {
+      // inner
+      linear_extrude(height=binSize.z, center=!true, convexity=10, twist=0)
+      binBase(binSize=binSize);
+    }
+
+    // inner space
+    difference() {
+      translate([0, 0, 1])
+      linear_extrude(height=binSize.z, center=!true, convexity=10, twist=0)
+      offset(r=-WALL_THICK)
+      binBase(binSize=binSize);
+    }
+	
+	z = WALL_THICK + 1.25;
+	for (y=[binSize.y/4 + 3, -binSize.y/4 - 3]) {
+		translate([0,y,z]) rotate([0,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+
+		translate([0,binSize.y/2,z]) rotate([0,90,90]) cylinder(d=3, h=binSize.x + 10, center=true);
+		
+		// Screw notches for the lower holes
+		for (x=[-binSize.x/2 + WALL_THICK*1.6, binSize.x/2 - WALL_THICK*1.6]) translate([x,y,0]) cube([2,4.5,4.5], center=true);
+		translate([0,binSize.y/2 - 3 - WALL_THICK*1.6,0]) rotate([0,0,90]) cube([2,4.5,4.5], center=true);
+	}
+	}
+}
+
 module frontEdge(binSize, frontStyle) {
         translate([0, -binSize.y/2, 0])
         rotate([frontStyle[EDGE_BOTTOM][DEG], 0, 0])
