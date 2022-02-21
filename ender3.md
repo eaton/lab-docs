@@ -1,9 +1,5 @@
-# Ender 3 Mods
-
-After a few years of relatively vanilla tweaking on the Ender 3, I went ape during the pandemic, grabbed a second printer, and started modding both of them. I'm doing my best to keep them in relative sync with each other, avoiding weird overhead as much as possible.
-
-## [Ender 3](https://www.creality3dofficial.com/products/official-creality-ender-3-3d-printer)
-## [Ender 3 Max](https://www.creality3dofficial.com/products/ender-3-max-3d-printer)
+# 3D Printer Setup
+Currently running an [Ender 3](https://www.creality3dofficial.com/products/official-creality-ender-3-3d-printer) and an [Ender 3 Max](https://www.creality3dofficial.com/products/ender-3-max-3d-printer) with a variety of mods and firmware changes. The tweaks never end.
 
 ## Standardized Mods
 - [Silicone hot end sleeve](https://www.amazon.com/dp/B083GXQ7L8) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
@@ -23,7 +19,8 @@ After a few years of relatively vanilla tweaking on the Ender 3, I went ape duri
 - Relay to control printer power from Pi (https://www.amazon.com/gp/product/B07TWH7DZ1)
 - IR PiCam for print monitoring (even when the lights in the basement are off)
 
-## [Customized Firmware](https://github.com/nerdhaus/Marlin): I try to keep both printers in sync with the bugfix branch of Marlin, and have branched config files for the two models that keeps their features in sync while accounting for bed size and other differences. ([Ender 3](https://github.com/nerdhaus/Marlin/commits/nerdhaus-ender-3/Marlin), [Ender 3 Max](https://github.com/nerdhaus/Marlin/commits/nerdhaus-ender-3-max/Marlin)). 
+## [Customized Firmware](https://github.com/nerdhaus/Marlin)
+I try to keep both printers in sync with the bugfix branch of Marlin, and have branched config files for the two models that keeps their features in sync while accounting for bed size and other differences. ([Ender 3](https://github.com/nerdhaus/Marlin/commits/nerdhaus-ender-3/Marlin), [Ender 3 Max](https://github.com/nerdhaus/Marlin/commits/nerdhaus-ender-3-max/Marlin)). 
 - Noteworthy features that have been enabled:
   - [G2/G3 Arc support](https://marlinfw.org/docs/gcode/G002-G003.html) for smoother curves
   - [Filament runout detection](https://marlinfw.org/docs/gcode/M412.html) to support Creality's standard filament sensor
