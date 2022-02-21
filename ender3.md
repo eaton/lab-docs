@@ -42,14 +42,15 @@ I try to keep both printers in sync with the bugfix branch of Marlin, and have b
 
 ## The To-Do List
 - [ ] External case for Octoprint/PSUs
-- [ ] Better [LCD controller](https://www.amazon.com/gp/product/B09292H22C), or Octoprint-based display
 - [ ] Cast aluminum heated beds
 - [ ] Relay-controlled AC heated beds to reduce PSU strain
+- [ ] Standardized print heads & parts fans. (Easy to buy an Ender 3 Max hot end shroud and fans, not so easy to get the carriage plate.)
 - [ ] All-metal extruders
 - [ ] Direct drive
 - [ ] Heated enclosure
+- [ ] Better [LCD controller](https://www.amazon.com/gp/product/B09292H22C), or Octoprint-based display
 
 ## Past Mods:
-- [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970) with dual 5020 parts cooling fans
+- [Hero Me Gen5 cooling ducts](https://www.thingiverse.com/thing:4460970) with dual 5020 parts cooling fans. The reduced the printable area, made attaching the CR Touch a pain, and were overkill for the printing I was doing so I rolled back to the original shroud and fans for the time being.
 - 60mm mainboard fan and [boosted cover](https://www.thingiverse.com/thing:4478891)
 - 24v-to-USB buck converter to power Pi4 from main power supply (https://www.amazon.com/gp/product/B01HM0OT6G + https://www.thingiverse.com/thing:4810393 + https://www.amazon.com/gp/product/B07RDDTQ6T). New standardized Octoprint box draws power from a single PSU connection.
