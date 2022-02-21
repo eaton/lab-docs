@@ -3,7 +3,7 @@ Currently running an [Ender 3](https://www.creality3dofficial.com/products/offic
 
 ## Standardized Mods
 - [Silicone hot end sleeve](https://www.amazon.com/dp/B083GXQ7L8) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
-- [Glass print bed](https://www.amazon.com/B07F16WPR5) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
+- [Glass print bed](https://www.amazon.com/gp/product/B07FSM8DK9) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
 - [Aluminium extruder](https://www.amazon.com/gp/product/B07G2ZM919) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
 - [Silicone bed spring replacements](https://www.aliexpress.com/item/4001034984008.html) make leveling a bit less fussy. May replace them with solid spacers eventually.
 - X and Y [belt tensioners](https://www.amazon.com/gp/product/B087YWMHM2)
