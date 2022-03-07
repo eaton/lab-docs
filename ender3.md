@@ -11,7 +11,7 @@ Currently running an [Ender 3](https://www.creality3dofficial.com/products/offic
 - HICTOP Dual Z-Axis upgrade ([Ender 3](https://www.amazon.com/gp/product/B08T1VJ9ZT), [Ender 3 Max](https://www.amazon.com/gp/product/B07529LXTQ))
 - [CR Touch](https://www.creality3dofficial.com/products/creality-cr-touch) bed leveling probe
 - [Filament runout sensor](https://www.amazon.com/gp/product/B099ZT1KNY) (Standard for the Ender 3 Max, aftermarket for the Ender 3.)
-- [32-bit 4.2.7 mainboard](https://creality3d.shop/products/creality3d-upgrade-silent-4-2-7-1-1-5-mainboard-for-ender-3-ender-3-pro-ender-5-3d-printer?variant=36836286038166); this is the one with silent steppers and a bootloader to make flashing new versions of the firmware much simpler.
+- [32-bit 4.2.7 mainboard](https://creality3d.shop/products/creality3d-upgrade-silent-4-2-7-1-1-5-mainboard-for-ender-3-ender-3-pro-ender-5-3d-printer?variant=36836286038166); this is the one with silent steppers and a bootloader to make flashing new versions of the firmware much simpler. Both have the 512k ARM STM32F103-RET6 chip, newer revs of the board may be switching to a cheaper 256k version of the chip.
 - [Meanwell power supply](https://www.amazon.com/gp/product/B013ETVO12) w/[Noctua 80mm fan](https://www.amazon.com/gp/product/B00KF7T9MI)
 
 ## Octoprint Controller
@@ -25,7 +25,7 @@ I try to keep both printers in sync with the bugfix branch of Marlin, and have b
   - [G2/G3 Arc support](https://marlinfw.org/docs/gcode/G002-G003.html) for smoother curves
   - [Filament runout detection](https://marlinfw.org/docs/gcode/M412.html) to support Creality's standard filament sensor
   - [Probe offset wizard](https://marlinfw.org/docs/gcode/M851.html) to configure the CR Touch
-  - [Unified bed leveling](https://marlinfw.org/docs/gcode/G029-ubl.html)
+  - [Unified bed leveling](https://marlinfw.org/docs/gcode/G029-ubl.html) for the Ender 3 Max, and [three point leveling](https://marlinfw.org/docs/gcode/G029-abl-3point.html) for the Ender 3. Working on figuring out why the E3 [chokes when building a full mesh](https://github.com/MarlinFirmware/Marlin/issues/23842).
   - [Assisted tramming](https://marlinfw.org/docs/gcode/G035.html)
   - [Babystepping](https://marlinfw.org/docs/gcode/M290.html)
   - [Binary File Transfer](https://marlinfw.org/docs/configuration/configuration.html#binary-file-transfer) enabled and [SD Card](https://marlinfw.org/docs/configuration/configuration.html#sd-card-connection) set to `ONBOARD` to allow firmware updates from OctoPrint.
